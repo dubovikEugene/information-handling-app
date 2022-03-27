@@ -46,6 +46,6 @@ public class Word implements TextElement {
 
     @Override
     public String printText() {
-        return null;
+        return this.word;
     }
 }
