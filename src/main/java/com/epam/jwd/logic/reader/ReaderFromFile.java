@@ -7,7 +7,7 @@ import java.io.IOException;
 public class ReaderFromFile {
     private static final String OUTPUT_PATH = "src/main/resources/input/text.txt";
 
-    public void write() {
+    public String read() {
 
         StringBuilder textFromFile = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(OUTPUT_PATH))) {
@@ -19,5 +19,7 @@ public class ReaderFromFile {
 //            TODO logger
             e.printStackTrace();
         }
+        return textFromFile.toString();
     }
+
 }
