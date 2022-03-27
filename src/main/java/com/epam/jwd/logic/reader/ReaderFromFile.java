@@ -5,12 +5,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ReaderFromFile {
-    private static final String INPUT_PATH = "src/main/resources/input/text.txt";
 
-    public String read() {
+    public String read(String inputPath) {
 
         StringBuilder textFromFile = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader(INPUT_PATH))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputPath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 textFromFile.append(line).append(System.lineSeparator());
