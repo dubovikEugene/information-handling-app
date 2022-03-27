@@ -48,6 +48,13 @@ public class Sentence implements TextElement {
 
     @Override
     public String printText() {
-        return null;
+        final String wordsDelimiter = " ";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (TextElement word : words) {
+            stringBuilder.append(word.printText())
+                    .append(wordsDelimiter);
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 }

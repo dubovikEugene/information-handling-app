@@ -48,6 +48,14 @@ public class Paragraph implements TextElement {
 
     @Override
     public String printText() {
-        return null;
+        final String sentencesDelimiter = " ";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (TextElement sentence : sentences) {
+            stringBuilder.append(sentence.printText())
+                    .append(sentencesDelimiter);
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        stringBuilder.append(System.lineSeparator());
+        return stringBuilder.toString();
     }
 }

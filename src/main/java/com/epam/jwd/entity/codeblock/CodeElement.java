@@ -39,6 +39,6 @@ public class CodeElement implements TextElement {
 
     @Override
     public String printText() {
-        return null;
+        return this.codeElement;
     }
 }

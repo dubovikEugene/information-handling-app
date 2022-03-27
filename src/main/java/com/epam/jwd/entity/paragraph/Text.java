@@ -42,6 +42,7 @@ public class Text implements TextElement {
         for (TextElement element : allTextElements) {
             stringBuilder.append(element.printText());
         }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         return stringBuilder.toString();
     }
 }

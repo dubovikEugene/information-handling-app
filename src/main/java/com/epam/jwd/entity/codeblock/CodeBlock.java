@@ -41,6 +41,11 @@ public class CodeBlock implements TextElement {
 
     @Override
     public String printText() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (TextElement codeElement : codeElements) {
+            stringBuilder.append(codeElement.printText());
+        }
+        stringBuilder.append(System.lineSeparator());
+        return stringBuilder.toString();
     }
 }
