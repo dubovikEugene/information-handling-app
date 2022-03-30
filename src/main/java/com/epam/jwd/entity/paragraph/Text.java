@@ -7,14 +7,17 @@ import java.util.List;
 public class Text implements TextElement {
     private List<TextElement> allTextElements;
 
-    public Text(List<TextElement> paragraphs) {
-        this.allTextElements = paragraphs;
+    public Text(List<TextElement> textElements) {
+        this.allTextElements = textElements;
     }
 
-    public void setParagraphs(List<TextElement> paragraphs) {
-        this.allTextElements = paragraphs;
+    public void setTextElements(List<TextElement> textElements) {
+        this.allTextElements = textElements;
     }
 
+    public List<TextElement> getAllTextElements() {
+        return allTextElements;
+    }
 
     @Override
     public boolean equals(Object object) {
