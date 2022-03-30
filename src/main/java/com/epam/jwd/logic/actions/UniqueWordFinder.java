@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UniqueWordFinder {
-    private static final String WORD_REG_EX = "\\b";
+    private static final String WORD_REG_EX = "\\b%s\\b";
 
     public String findUniqueWord(Text text) {
         List<String> words = getArrayWordsFromFirstSentence(text);
@@ -71,13 +71,9 @@ public class UniqueWordFinder {
 
     private List<String> getWordsRegex(List<String> words) {
         List<String> regexList = new ArrayList<>();
-        StringBuilder sbRegex = new StringBuilder();
         for (String word : words) {
-            sbRegex.insert(0, WORD_REG_EX)
-                    .append(word.toLowerCase())
-                    .append(WORD_REG_EX);
-            regexList.add(sbRegex.toString());
-            sbRegex.setLength(0);
+            String strRegex = String.format(WORD_REG_EX,word);
+            regexList.add(strRegex);
         }
         return regexList;
     }
