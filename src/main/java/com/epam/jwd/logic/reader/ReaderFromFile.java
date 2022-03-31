@@ -1,13 +1,18 @@
 package com.epam.jwd.logic.reader;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class ReaderFromFile {
 
-    public String read(String inputPath) {
+    private final static Logger logger = LogManager.getLogger(ReaderFromFile.class);
 
+    public String read(String inputPath) {
+        logger.info("reader start read");
         StringBuilder textFromFile = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(inputPath))) {
             String line;

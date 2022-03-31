@@ -4,6 +4,9 @@ import com.epam.jwd.entity.TextElement;
 import com.epam.jwd.entity.codeblock.CodeBlock;
 import com.epam.jwd.entity.paragraph.Paragraph;
 import com.epam.jwd.logic.parser.Parser;
+import com.epam.jwd.logic.reader.ReaderFromFile;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +16,12 @@ import java.util.Scanner;
 public class TextParser implements Parser<String, List<TextElement>> {
     private static final String PARAGRAPH_REG_EX = "^(^[1-9].+)|([\\w \\p{Punct}]+)(\\.|:)$";
     private static final String CODE_BLOCK_END_REG_EX = "^\\}$|^[ ]+Grade = C$";
+    private final static Logger logger = LogManager.getLogger(ReaderFromFile.class);
 
 
     @Override
     public List<TextElement> parse(String inputText) {
+        logger.info("Start parsing text");
 
         Scanner scanner = new Scanner(inputText);
 
