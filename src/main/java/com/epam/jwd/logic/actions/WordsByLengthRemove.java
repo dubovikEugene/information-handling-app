@@ -1,62 +1,40 @@
 package com.epam.jwd.logic.actions;
 
 import com.epam.jwd.entity.TextElement;
+import com.epam.jwd.entity.paragraph.Paragraph;
+import com.epam.jwd.entity.paragraph.Sentence;
 import com.epam.jwd.entity.paragraph.Text;
-import com.epam.jwd.logic.parser.impl.TextParser;
+import com.epam.jwd.entity.paragraph.Word;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class WordsByLengthRemove {
-    private static final String WORD_DELETE_BY_LENGTH_START_REG_EX = "\\b\\w{";
-    private static final String WORD_DELETE_BY_LENGTH_END_REG_EX = "}\\b";
-    private static final String WORD_DELETE_REG_EX = "\\b";
-    private static final char CHAR_A = 'a';
-    private static final char CHAR_E = 'e';
-    private static final char CHAR_I = 'i';
-    private static final char CHAR_O = 'o';
-    private static final char CHAR_U = 'u';
-    private static final char CHAR_Z = 'z';
-    private static final String REPLACEMENT = "";
+    private static final String CONSONANTS = "[bBcCdDfFgGjJkKlLmMnNpPqQsStTvVxXzZhHrRwW]";
 
-    public Text removeWordsByLength(Text text, int length) {
-        String regexToRemove = getRegex(length);
-        String input = text.printText();
-        Pattern pattern = Pattern.compile(regexToRemove, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(input);
+    public void removeWordsByLength(Text text, int length) {
+        List<TextElement> textElements = text.getAllTextElements();
 
-        String output = input;
-        while (matcher.find()) {
-            if (isStartFromConsonant(matcher.group())) {
-                StringBuilder sbRegex = new StringBuilder(WORD_DELETE_REG_EX);
-                sbRegex.append(matcher.group());
-                sbRegex.append(WORD_DELETE_REG_EX);
-                output = output.replaceFirst(sbRegex.toString(), REPLACEMENT);
-            }
-        }
-        TextParser parser = new TextParser();
-        List<TextElement> textElements = parser.parse(output);
-        return new Text(textElements);
+        textElements.stream()
+                .filter(textElement -> textElement instanceof Paragraph)
+                .map(paragraph -> ((Paragraph) paragraph).getSentences())
+                .flatMap(Collection::stream)
+                .filter(element -> element instanceof Sentence)
+                .forEach(sentence -> removeWord((Sentence) sentence, length));
     }
 
-    private String getRegex(int length) {
-        return new StringBuilder(WORD_DELETE_BY_LENGTH_START_REG_EX).append(length)
-                .append(WORD_DELETE_BY_LENGTH_END_REG_EX)
-                .toString();
+    private void removeWord(Sentence sentence, int length){
+        List<TextElement> words = sentence.getWords();
+        List<TextElement> wordsAfterDelete = words.stream()
+                .filter(word -> !isToRemove((Word) word, length))
+                .toList();
+        sentence.setWords(wordsAfterDelete);
+
     }
 
-    private boolean isStartFromConsonant(String matcherGroup) {
-        char firstChar = matcherGroup.toLowerCase().charAt(0);
-        if (firstChar == CHAR_A
-                || firstChar == CHAR_E
-                || firstChar == CHAR_I
-                || firstChar == CHAR_O
-                || firstChar == CHAR_U) {
-            return false;
-        } else {
-            return firstChar >= CHAR_A && firstChar <= CHAR_Z;
-        }
+    private boolean isToRemove(Word word, int length) {
+        return word.getWord().length() == length
+                && CONSONANTS.indexOf(word.getWord().charAt(0)) != -1;
     }
 
 }
