@@ -1,0 +1,9 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+src/main/resources/output
+
+# Maven
+log/
+target/
