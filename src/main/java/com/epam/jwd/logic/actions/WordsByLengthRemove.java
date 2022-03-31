@@ -23,7 +23,7 @@ public class WordsByLengthRemove {
                 .forEach(sentence -> removeWord((Sentence) sentence, length));
     }
 
-    private void removeWord(Sentence sentence, int length){
+    private void removeWord(Sentence sentence, int length) {
         List<TextElement> words = sentence.getWords();
         List<TextElement> wordsAfterDelete = words.stream()
                 .filter(word -> !isToRemove((Word) word, length))
