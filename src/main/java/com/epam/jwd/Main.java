@@ -25,7 +25,12 @@ public class Main {
 
     public static void main(String[] args) {
         ReaderFromFile readerFromFile = new ReaderFromFile();
-        String readText = readerFromFile.read(INPUT_PATH);
+        String readText = null;
+        try {
+            readText = readerFromFile.read(INPUT_PATH);
+        } catch (IOException e) {
+            logger.error("IO exception", e);
+        }
 
         TextParser textParser = new TextParser();
         Text text = new Text(textParser.parse(readText));

@@ -11,7 +11,7 @@ public class ReaderFromFile {
 
     private final static Logger logger = LogManager.getLogger(ReaderFromFile.class);
 
-    public String read(String inputPath) {
+    public String read(String inputPath) throws IOException {
         logger.info("reader start read");
         StringBuilder textFromFile = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(inputPath))) {
@@ -20,8 +20,8 @@ public class ReaderFromFile {
                 textFromFile.append(line).append(System.lineSeparator());
             }
         } catch (IOException e) {
-//            TODO logger
-            e.printStackTrace();
+            logger.error("IO exception", e);
+            throw new IOException();
         }
         return textFromFile.toString();
     }

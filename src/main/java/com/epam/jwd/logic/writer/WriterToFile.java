@@ -23,8 +23,8 @@ public class WriterToFile {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outputPath));) {
             bufferedWriter.write(content);
         } catch (IOException e) {
-//            TODO logger
-            e.printStackTrace();
+            logger.error("IO exception", e);
+            throw new IOException();
         }
     }
 
