@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class WriterToFile {
-    private static final String DELETE_FILE_FROM_PATH_REG_EX = "/[a-zA-Z_]+\\.[a-zA-Z]{1,5}$";
+    private static final String DELETE_FILE_FROM_PATH_REG_EX = "/[a-zA-Z_0-9]+\\.[a-zA-Z]{1,5}$";
     private static final String REPLACEMENT_REG_EX = "";
 
     public void write(String content, String outputPath) {
